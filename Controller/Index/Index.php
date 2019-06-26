@@ -2,7 +2,6 @@
 
 namespace Excellence\ExpressDelivery\Controller\Index;
 
-
 use Excellence\ExpressDelivery\Block\Product\CustomList;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
@@ -20,8 +19,7 @@ class Index extends Action
         Context $context,
         PageFactory $pageFactory,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $collectionFactory
-    )
-    {
+    ) {
         $this->pageFactory = $pageFactory;
         $this->productCollection = $collectionFactory->create();
 
@@ -31,10 +29,10 @@ class Index extends Action
     public function execute()
     {
         $result = $this->pageFactory->create();
-
         // obtain product collection.
         $this->productCollection->addFieldToSelect('*')
-            ->addAttributeToFilter('is_express_delivery', '1') // only products with custom attribute
+            ->addAttributeToFilter('is_express_delivery', '1')
+             // only products with custom attribute
             ->setPageSize(6) // only get 6 products per page
             ->load();
 
@@ -42,7 +40,6 @@ class Index extends Action
         /** @var CustomList $list */
         $list = $result->getLayout()->getBlock('custom.products.list');
         $list->setProductCollection($this->productCollection);
-
         return $result;
     }
 }
